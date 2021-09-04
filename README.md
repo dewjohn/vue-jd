@@ -1,5 +1,7 @@
 # jingdong
 
+This is a unfinished project
+
 ## Project setup
 ```
 npm install
