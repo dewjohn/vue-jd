@@ -12,12 +12,12 @@
         <div class="order__content">
           <div class="order__content__imgs">
             <template
-            v-for="(innerItem, innerIndex) in item.products"
+            v-for="(innerItem, innerIndex) in item.orderProducts"
             :key="innerIndex">
             <img
             class="order__content__img"
             v-if="innerIndex <=4"
-            :src="innerItem.product.img"
+            :src="innerItem.orderProduct.imgUrl"
             alt="">
             </template>
           </div>
@@ -46,17 +46,17 @@ const useOrderEffect = () => {
       // 计算总价
       const orderList = result.data
       orderList.forEach(element => {
-        const products = element.products || []
+        const products = element.orderProducts || []
         let totalPrice = 0
         let totalCount = 0
         products.forEach(productItem => {
-          totalPrice += (productItem?.product?.price * productItem?.orderSales)
-          totalCount += (productItem?.orderSales || 0)
+          totalPrice += (productItem?.orderProduct?.price * productItem?.orderNum)
+          totalCount += (productItem?.orderNum || 0)
         })
         element.totalPrice = totalPrice
         element.totalCount = totalCount
       })
-      data.list = result.data.data
+      data.list = result.data
     }
   }
   getOrderList()

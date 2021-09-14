@@ -2,8 +2,8 @@
   <div class="wrapper">
     <div class="header">
       <div class="header__info">
-        <div class="header__info__name">Dell</div>
-        <div class="header__info__id">ID:0000001</div>
+        <div class="header__info__name">{{ dataForm.username }}</div>
+        <div class="header__info__id">Id: {{dataForm.id}}</div>
       </div>
       <img class="header__profile" src="http://www.dell-lee.com/imgs/vue3/near.png"/>
     </div>
@@ -23,7 +23,23 @@
 
 <script>
 import Docker from '../../components/Docker.vue'
+import { get } from '../../utilis/request'
 import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
+// 获取账号和Id
+const getInfo = () => {
+  const dataForm = reactive({ username: '', id: '' })
+  const getUser = async () => {
+    const result = await get('/api/user')
+    console.log(result)
+    if (result?.errno === 0) {
+      const { _id, username } = result.data
+      dataForm.username = username
+      dataForm.id = _id
+    }
+  }
+  return { dataForm, getUser }
+}
 export default {
   name: 'User',
   components: { Docker },
@@ -36,7 +52,9 @@ export default {
     const handleaddress = () => {
       router.push({ name: 'MyAddress' })
     }
-    return { Docker, handleLogout, handleaddress }
+    const { dataForm, getUser } = getInfo()
+    getUser()
+    return { Docker, handleLogout, handleaddress, dataForm }
   }
 }
 </script>

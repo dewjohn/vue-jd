@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
     <div class="search">
-      <div class="search__back iconfont">&#xe602;</div>
+      <div class="search__back iconfont" @click="handleBackClick">&#xe602;</div>
       <div class="search__content">
-        <span class="search__content__icon iconfont" @click="handleBackClick">&#xe647;</span>
+        <span class="search__content__icon iconfont">&#xe647;</span>
         <input class="search__content__input" placeholder="请输入商品名称搜索"/>
       </div>
     </div>
@@ -68,7 +68,8 @@ export default {
   height: .32rem;
   line-height: .32rem;
   &__back{
-    // width: .32rem;
+    width: .42rem;
+    display: inline-block;
     font-size: .24rem;
     color: #b6b6b6;
   }

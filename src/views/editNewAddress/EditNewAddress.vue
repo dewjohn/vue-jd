@@ -65,11 +65,12 @@ const useFormEffect = (addressId, router) => {
       if (result?.errno === 0 && result?.data) {
         router.back()
         console.log(result, '+++++++++++++')
-      } else {
-        const result = await post('/api/user/address', { data: formData })
-        if (result?.errno === 0) {
-          router.back()
-        }
+      }
+    } else {
+      const result = await post('/api/user/address', { data: formData })
+      if (result?.data?.errno === 0) {
+        console.log(formData)
+        router.back()
       }
     }
   }
